@@ -8,29 +8,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.github.mikanichinose.backpress.databinding.FragmentFirstBinding
 
-class FirstFragment : Fragment() {
+class FirstFragment : Fragment(), BackPressHandler {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         val binding: FragmentFirstBinding = FragmentFirstBinding.inflate(inflater)
-        binding.button1.setOnClickListener {
-            addSecondFragment()
-        }
-        binding.button2.setOnClickListener {
-            addSecondFragmentWithNullBackStack()
-        }
-        binding.button3.setOnClickListener {
-            addSecondFragmentWithBackStack()
-        }
-        binding.button4.setOnClickListener {
-            replaceSecondFragment()
-        }
-        binding.button5.setOnClickListener {
-            replaceSecondFragmentWithNullBackStack()
-        }
+        binding.button1.setOnClickListener { addSecondFragment() }
+        binding.button2.setOnClickListener { addSecondFragmentWithNullBackStack() }
+        binding.button3.setOnClickListener { addSecondFragmentWithBackStack() }
+        binding.button4.setOnClickListener { replaceSecondFragment() }
+        binding.button5.setOnClickListener { replaceSecondFragmentWithNullBackStack() }
         return binding.root
+    }
+
+    override fun onBackPressed(): Boolean {
+        addSecondFragmentWithBackStack()
+        return true
     }
 
     private fun addSecondFragment() {
@@ -58,6 +54,7 @@ class FirstFragment : Fragment() {
             replace(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
         }
     }
+
     private fun replaceSecondFragmentWithNullBackStack() {
         requireActivity().supportFragmentManager.commit {
             replace(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
@@ -68,7 +65,6 @@ class FirstFragment : Fragment() {
     companion object {
         val TAG: String = FirstFragment::class.java.simpleName
 
-        @JvmStatic
         fun newInstance() = FirstFragment()
     }
 }

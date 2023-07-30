@@ -15,8 +15,8 @@ class OnBackPressedDispatcherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_on_back_pressed_dispatcher)
         if (savedInstanceState == null) {
             addFirstFragment() // 期待通り
-//            addFirstFragmentToBackStack() // 空のFrameLayoutに戻れる
-//            addFirstFragmentToBackStackWithName() // 空のFrameLayoutに戻れる
+            //            addFirstFragmentToBackStack() // 空のFrameLayoutに戻れる
+            //            addFirstFragmentToBackStackWithName() // 空のFrameLayoutに戻れる
         }
         onBackPressedDispatcher.addCallback {
             if (supportFragmentManager.backStackEntryCount <= 1) {
@@ -28,9 +28,7 @@ class OnBackPressedDispatcherActivity : AppCompatActivity() {
     }
 
     private fun addFirstFragment() {
-        supportFragmentManager.commit {
-            add(R.id.container, FirstFragment.newInstance())
-        }
+        supportFragmentManager.commit { add(R.id.container, FirstFragment.newInstance()) }
     }
 
     private fun addFirstFragmentToBackStack() {
@@ -48,8 +46,10 @@ class OnBackPressedDispatcherActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun createIntent(
-            context: Context?
-        ) = Intent(context, OnBackPressedDispatcherActivity::class.java)
+        private const val KEY_IS_ADD_TO_BACK_STACK = "isAddToBackStack"
+        fun createIntent(context: Context?,isAddToBackStack:Boolean) =
+            Intent(context, OnBackPressedDispatcherActivity::class.java).apply {
+                putExtra(KEY_IS_ADD_TO_BACK_STACK, isAddToBackStack)
+            }
     }
 }

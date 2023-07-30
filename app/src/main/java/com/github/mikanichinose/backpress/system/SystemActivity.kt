@@ -16,7 +16,6 @@ class SystemActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             if (intent.getBooleanExtra(KEY_IS_ADD_TO_BACK_STACK, false)) {
                 addFirstFragmentWithNullBackStack() // 空のFrameLayoutに戻れる
-//            addFirstFragmentWithBackStack() // 空のFrameLayoutに戻れる
             } else {
                 addFirstFragment()
             }
@@ -36,20 +35,12 @@ class SystemActivity : AppCompatActivity() {
         }
     }
 
-    private fun addFirstFragmentWithBackStack() {
-        supportFragmentManager.commit {
-            add(R.id.container, FirstFragment.newInstance(), FirstFragment.TAG)
-            addToBackStack("FirstFragment")
-        }
-    }
-
     companion object {
         private const val KEY_IS_ADD_TO_BACK_STACK = "isAddToBackStack"
-        fun createIntent(
-            context: Context?,
-            isAddToBackStack: Boolean
-        ) = Intent(context, SystemActivity::class.java).apply {
-            putExtra(KEY_IS_ADD_TO_BACK_STACK, isAddToBackStack)
-        }
+
+        fun createIntent(context: Context?, isAddToBackStack: Boolean) =
+            Intent(context, SystemActivity::class.java).apply {
+                putExtra(KEY_IS_ADD_TO_BACK_STACK, isAddToBackStack)
+            }
     }
 }
