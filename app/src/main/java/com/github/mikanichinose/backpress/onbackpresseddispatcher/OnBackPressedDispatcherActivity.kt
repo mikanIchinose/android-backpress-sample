@@ -47,7 +47,10 @@ class OnBackPressedDispatcherActivity : AppCompatActivity() {
 
     companion object {
         private const val KEY_IS_ADD_TO_BACK_STACK = "isAddToBackStack"
-        fun createIntent(context: Context?,isAddToBackStack:Boolean) =
+        fun createIntent(
+            context: Context?,
+            isAddToBackStack: Boolean,
+        ) =
             Intent(context, OnBackPressedDispatcherActivity::class.java).apply {
                 putExtra(KEY_IS_ADD_TO_BACK_STACK, isAddToBackStack)
             }
