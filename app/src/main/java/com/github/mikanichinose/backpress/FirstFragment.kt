@@ -11,62 +11,62 @@ import timber.log.Timber
 
 class FirstFragment : Fragment(), BackPressHandler {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        val binding: FragmentFirstBinding = FragmentFirstBinding.inflate(inflater)
-        binding.button1.setOnClickListener { addSecondFragment() }
-        binding.button2.setOnClickListener { addSecondFragmentWithNullBackStack() }
-        binding.button3.setOnClickListener { addSecondFragmentWithBackStack() }
-        binding.button4.setOnClickListener { replaceSecondFragment() }
-        binding.button5.setOnClickListener { replaceSecondFragmentWithNullBackStack() }
-        return binding.root
-    }
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?,
+  ): View {
+    val binding: FragmentFirstBinding = FragmentFirstBinding.inflate(inflater)
+    binding.button1.setOnClickListener { addSecondFragment() }
+    binding.button2.setOnClickListener { addSecondFragmentWithNullBackStack() }
+    binding.button3.setOnClickListener { addSecondFragmentWithBackStack() }
+    binding.button4.setOnClickListener { replaceSecondFragment() }
+    binding.button5.setOnClickListener { replaceSecondFragmentWithNullBackStack() }
+    return binding.root
+  }
 
-    override fun onBackPressed(): Boolean {
-        Timber.d("onBackPressed")
-        addSecondFragmentWithBackStack()
-        return true
-    }
+  override fun onBackPressed(): Boolean {
+    Timber.d("onBackPressed")
+    addSecondFragmentWithBackStack()
+    return true
+  }
 
-    private fun addSecondFragment() {
-        requireActivity().supportFragmentManager.commit {
-            add(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
-        }
+  private fun addSecondFragment() {
+    requireActivity().supportFragmentManager.commit {
+      add(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
     }
+  }
 
-    private fun addSecondFragmentWithNullBackStack() {
-        requireActivity().supportFragmentManager.commit {
-            add(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
-            addToBackStack(null)
-        }
+  private fun addSecondFragmentWithNullBackStack() {
+    requireActivity().supportFragmentManager.commit {
+      add(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
+      addToBackStack(null)
     }
+  }
 
-    private fun addSecondFragmentWithBackStack() {
-        requireActivity().supportFragmentManager.commit {
-            add(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
-            addToBackStack("SecondFragment")
-        }
+  private fun addSecondFragmentWithBackStack() {
+    requireActivity().supportFragmentManager.commit {
+      add(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
+      addToBackStack("SecondFragment")
     }
+  }
 
-    private fun replaceSecondFragment() {
-        requireActivity().supportFragmentManager.commit {
-            replace(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
-        }
+  private fun replaceSecondFragment() {
+    requireActivity().supportFragmentManager.commit {
+      replace(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
     }
+  }
 
-    private fun replaceSecondFragmentWithNullBackStack() {
-        requireActivity().supportFragmentManager.commit {
-            replace(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
-            addToBackStack(null)
-        }
+  private fun replaceSecondFragmentWithNullBackStack() {
+    requireActivity().supportFragmentManager.commit {
+      replace(R.id.container, SecondFragment.newInstance(), SecondFragment.TAG)
+      addToBackStack(null)
     }
+  }
 
-    companion object {
-        val TAG: String = FirstFragment::class.java.simpleName
+  companion object {
+    val TAG: String = FirstFragment::class.java.simpleName
 
-        fun newInstance() = FirstFragment()
-    }
+    fun newInstance() = FirstFragment()
+  }
 }

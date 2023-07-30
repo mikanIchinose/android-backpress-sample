@@ -10,49 +10,50 @@ import com.github.mikanichinose.backpress.FirstFragment
 import com.github.mikanichinose.backpress.R
 
 class OnBackPressedDispatcherActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_on_back_pressed_dispatcher)
-        if (savedInstanceState == null) {
-            addFirstFragment() // 期待通り
-            //            addFirstFragmentToBackStack() // 空のFrameLayoutに戻れる
-            //            addFirstFragmentToBackStackWithName() // 空のFrameLayoutに戻れる
-        }
-        onBackPressedDispatcher.addCallback {
-            if (supportFragmentManager.backStackEntryCount <= 1) {
-                finish()
-            } else {
-                supportFragmentManager.popBackStack()
-            }
-        }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_on_back_pressed_dispatcher)
+    if (savedInstanceState == null) {
+      addFirstFragment() // 期待通り
+      //            addFirstFragmentToBackStack() // 空のFrameLayoutに戻れる
+      //            addFirstFragmentToBackStackWithName() // 空のFrameLayoutに戻れる
     }
+    onBackPressedDispatcher.addCallback {
+      if (supportFragmentManager.backStackEntryCount <= 1) {
+        finish()
+      } else {
+        supportFragmentManager.popBackStack()
+      }
+    }
+  }
 
-    private fun addFirstFragment() {
-        supportFragmentManager.commit { add(R.id.container, FirstFragment.newInstance()) }
-    }
+  private fun addFirstFragment() {
+    supportFragmentManager.commit { add(R.id.container, FirstFragment.newInstance()) }
+  }
 
-    private fun addFirstFragmentToBackStack() {
-        supportFragmentManager.commit {
-            add(R.id.container, FirstFragment.newInstance())
-            addToBackStack(null)
-        }
+  private fun addFirstFragmentToBackStack() {
+    supportFragmentManager.commit {
+      add(R.id.container, FirstFragment.newInstance())
+      addToBackStack(null)
     }
+  }
 
-    private fun addFirstFragmentToBackStackWithName() {
-        supportFragmentManager.commit {
-            add(R.id.container, FirstFragment.newInstance())
-            addToBackStack("FirstFragment")
-        }
+  private fun addFirstFragmentToBackStackWithName() {
+    supportFragmentManager.commit {
+      add(R.id.container, FirstFragment.newInstance())
+      addToBackStack("FirstFragment")
     }
+  }
 
-    companion object {
-        private const val KEY_IS_ADD_TO_BACK_STACK = "isAddToBackStack"
-        fun createIntent(
-            context: Context?,
-            isAddToBackStack: Boolean,
-        ) =
-            Intent(context, OnBackPressedDispatcherActivity::class.java).apply {
-                putExtra(KEY_IS_ADD_TO_BACK_STACK, isAddToBackStack)
-            }
-    }
+  companion object {
+    private const val KEY_IS_ADD_TO_BACK_STACK = "isAddToBackStack"
+
+    fun createIntent(
+      context: Context?,
+      isAddToBackStack: Boolean,
+    ) =
+      Intent(context, OnBackPressedDispatcherActivity::class.java).apply {
+        putExtra(KEY_IS_ADD_TO_BACK_STACK, isAddToBackStack)
+      }
+  }
 }
