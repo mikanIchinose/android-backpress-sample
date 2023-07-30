@@ -9,6 +9,7 @@ import com.github.mikanichinose.backpress.FirstFragment
 import com.github.mikanichinose.backpress.R
 import com.github.mikanichinose.backpress.SecondFragment
 import com.github.mikanichinose.backpress.extension.getTopFragment
+import timber.log.Timber
 
 class OverrideOnBackPressedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,14 +28,17 @@ class OverrideOnBackPressedActivity : AppCompatActivity() {
         val isFirstFragmentConsumeBackPressed =
             getTopFragment<FirstFragment>()?.onBackPressed() == true
         if (isFirstFragmentConsumeBackPressed) {
+            Timber.d("onBackPressed from FirstFragment")
             return
         }
         val isSecondFragmentConsumeBackPressed =
             getTopFragment<SecondFragment>()?.onBackPressed() == true
         if (isSecondFragmentConsumeBackPressed) {
+            Timber.d("onBackPressed from SecondFragment")
             return
         }
 
+        Timber.d("onBackPressed from OverrideOnBackPressedActivity")
         if (supportFragmentManager.backStackEntryCount <= 1) {
             finish()
         } else {

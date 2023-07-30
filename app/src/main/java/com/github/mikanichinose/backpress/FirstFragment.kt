@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.github.mikanichinose.backpress.databinding.FragmentFirstBinding
+import timber.log.Timber
 
 class FirstFragment : Fragment(), BackPressHandler {
 
@@ -25,6 +26,7 @@ class FirstFragment : Fragment(), BackPressHandler {
     }
 
     override fun onBackPressed(): Boolean {
+        Timber.d("onBackPressed")
         addSecondFragmentWithBackStack()
         return true
     }
