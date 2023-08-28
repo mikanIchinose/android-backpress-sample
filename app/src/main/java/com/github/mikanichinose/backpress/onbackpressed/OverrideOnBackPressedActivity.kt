@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
+import com.github.mikanichinose.backpress.BackPressFragment
 import com.github.mikanichinose.backpress.FirstFragment
 import com.github.mikanichinose.backpress.R
 import com.github.mikanichinose.backpress.SecondFragment
@@ -25,15 +26,12 @@ class OverrideOnBackPressedActivity : AppCompatActivity() {
   }
 
   override fun onBackPressed() {
-    val isFirstFragmentConsumeBackPressed = getTopFragment<FirstFragment>()?.onBackPressed() == true
-    if (isFirstFragmentConsumeBackPressed) {
-      Timber.d("onBackPressed from FirstFragment")
-      return
+    supportFragmentManager.fragments.also {
+      Timber.d("fragments: $it")
     }
-    val isSecondFragmentConsumeBackPressed =
-      getTopFragment<SecondFragment>()?.onBackPressed() == true
-    if (isSecondFragmentConsumeBackPressed) {
-      Timber.d("onBackPressed from SecondFragment")
+
+    val isFragmentConsumeBackPressed = getTopFragment<BackPressFragment>()?.onBackPressed() == true
+    if (isFragmentConsumeBackPressed) {
       return
     }
 

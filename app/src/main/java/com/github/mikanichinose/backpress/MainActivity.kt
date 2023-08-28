@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikanichinose.backpress.databinding.ActivityMainBinding
 import com.github.mikanichinose.backpress.onbackpressed.OverrideOnBackPressedActivity
+import com.github.mikanichinose.backpress.onbackpresseddispatcher.OnBackPressedDispatcherActivity
 import com.github.mikanichinose.backpress.system.SystemActivity
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,10 @@ class MainActivity : AppCompatActivity() {
     }
     binding.button4.setOnClickListener {
       val intent = OverrideOnBackPressedActivity.createIntent(this, true)
+      startActivity(intent)
+    }
+    binding.button5.setOnClickListener {
+      val intent = OnBackPressedDispatcherActivity.createIntent(this,false)
       startActivity(intent)
     }
     setContentView(binding.root)

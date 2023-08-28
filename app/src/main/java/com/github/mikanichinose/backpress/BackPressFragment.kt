@@ -1,5 +1,5 @@
 package com.github.mikanichinose.backpress
 
-interface BackPressHandler {
+interface BackPressFragment {
   fun onBackPressed(): Boolean
 }

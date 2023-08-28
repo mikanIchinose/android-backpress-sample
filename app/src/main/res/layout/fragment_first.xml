@@ -53,18 +53,18 @@
                     android:id="@+id/button3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="add->addToBackStack('SecondFragment')" />
+                    android:text="create OnBackPressedDispatcherActivity" />
 
-                <Button
-                    android:id="@+id/button4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="replace" />
-                <Button
-                    android:id="@+id/button5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="replace->addToBackStack(null)" />
+                <!--                <Button-->
+                <!--                    android:id="@+id/button4"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="replace" />-->
+                <!--                <Button-->
+                <!--                    android:id="@+id/button5"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="replace->addToBackStack(null)" />-->
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

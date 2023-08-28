@@ -5,25 +5,27 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import com.github.mikanichinose.backpress.FirstFragment
 import com.github.mikanichinose.backpress.R
+import timber.log.Timber
 
 class OnBackPressedDispatcherActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_on_back_pressed_dispatcher)
     if (savedInstanceState == null) {
-      addFirstFragment() // 期待通り
-      //            addFirstFragmentToBackStack() // 空のFrameLayoutに戻れる
-      //            addFirstFragmentToBackStackWithName() // 空のFrameLayoutに戻れる
+      if (intent.getBooleanExtra(KEY_IS_ADD_TO_BACK_STACK, false)) {
+        addFirstFragmentToBackStack() // 空のFrameLayoutに戻れる
+      } else {
+        addFirstFragment() // 期待通り
+      }
     }
     onBackPressedDispatcher.addCallback {
-      if (supportFragmentManager.backStackEntryCount <= 1) {
-        finish()
-      } else {
-        supportFragmentManager.popBackStack()
-      }
+      Timber.d("back pressed!!")
+//      remove()
+      finish()
     }
   }
 
@@ -38,13 +40,6 @@ class OnBackPressedDispatcherActivity : AppCompatActivity() {
     }
   }
 
-  private fun addFirstFragmentToBackStackWithName() {
-    supportFragmentManager.commit {
-      add(R.id.container, FirstFragment.newInstance())
-      addToBackStack("FirstFragment")
-    }
-  }
-
   companion object {
     private const val KEY_IS_ADD_TO_BACK_STACK = "isAddToBackStack"
 
@@ -53,7 +48,9 @@ class OnBackPressedDispatcherActivity : AppCompatActivity() {
       isAddToBackStack: Boolean,
     ) =
       Intent(context, OnBackPressedDispatcherActivity::class.java).apply {
-        putExtra(KEY_IS_ADD_TO_BACK_STACK, isAddToBackStack)
+        bundleOf(
+          KEY_IS_ADD_TO_BACK_STACK to isAddToBackStack
+        )
       }
   }
 }

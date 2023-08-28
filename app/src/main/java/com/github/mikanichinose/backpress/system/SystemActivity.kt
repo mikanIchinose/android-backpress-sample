@@ -24,13 +24,13 @@ class SystemActivity : AppCompatActivity() {
 
   private fun addFirstFragment() {
     supportFragmentManager.commit {
-      add(R.id.container, FirstFragment.newInstance(), FirstFragment.TAG)
+      add(R.id.container, FirstFragment.newInstance())
     }
   }
 
   private fun addFirstFragmentWithNullBackStack() {
     supportFragmentManager.commit {
-      add(R.id.container, FirstFragment.newInstance(), FirstFragment.TAG)
+      add(R.id.container, FirstFragment.newInstance())
       addToBackStack(null)
     }
   }

@@ -1,0 +1,14 @@
+complexity:
+  LongMethod:
+    threshold: 120
+  NestedBlockDepth:
+    threshold: 6
+
+style:
+  ReturnCount:
+    max: 4
+
+formatting:
+  # ktfmtに合わせる
+  Indentation:
+    indentSize: 2
